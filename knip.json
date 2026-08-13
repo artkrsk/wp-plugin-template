@@ -1,7 +1,6 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
-  "entry": ["src/ts/boot.ts", "src/styles/index.scss", "project.config.js"],
-  "project": ["src/ts/**/*.ts", "tests/**/*.ts", "src/styles/**/*.{scss,sass}"],
-  "ignoreExportsUsedInFile": true,
-  "ignoreBinaries": ["composer"]
+  "entry": ["src/ts/boot.ts", "project.config.js", "playground/main.ts", "vite.config.ts"],
+  "project": ["src/ts/**/*.ts", "tests/**/*.ts", "playground/**/*.ts"],
+  "ignoreExportsUsedInFile": true
 }
