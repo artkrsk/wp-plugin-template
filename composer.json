@@ -1,0 +1,97 @@
+{
+  "name": "arts/__SLUG__",
+  "version": "1.0.0",
+  "description": "__NAME__.",
+  "license": "GPL-3.0-or-later",
+  "homepage": "https://artemsemkin.com/plugins/__SLUG__/",
+  "authors": [
+    {
+      "name": "Artem Semkin",
+      "email": "me@artemsemkin.com",
+      "homepage": "https://artemsemkin.com"
+    }
+  ],
+  "plugin": {
+    "Plugin Name": "__NAME__",
+    "Description": "__NAME__.",
+    "Plugin URI": "https://artemsemkin.com/plugins/__SLUG__/",
+    "License": "GPLv3",
+    "License URI": "https://www.gnu.org/licenses/gpl-3.0",
+    "Text Domain": "__SLUG__"
+  },
+  "wordpress": {
+    "Requires at least": "6.0",
+    "Tested up to": "7.1",
+    "Requires PHP": "8.0"
+  },
+  "require": {
+    "php": ">=8.0"
+  },
+  "autoload": {
+    "classmap": [
+      "vendor-prefixed/"
+    ],
+    "psr-4": {
+      "Arts\\__NAMESPACE__\\": "src/php/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Arts\\__NAMESPACE__\\Tests\\": "tests/php/"
+    }
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "phpstan/extension-installer": true
+    }
+  },
+  "require-dev": {
+    "arts/elementor-stubs": "^4.0",
+    "arts/wp-plugin-standards": "^1.0",
+    "brianhenryie/strauss": "^0.28"
+  },
+  "extra": {
+    "strauss": {
+      "target_directory": "vendor-prefixed",
+      "namespace_prefix": "Arts__NAMESPACE__\\",
+      "classmap_prefix": "Arts__NAMESPACE___",
+      "constant_prefix": "ARTS___CONSTANT___VENDOR_",
+      "classmap_output": true,
+      "include_modified_date": true,
+      "include_author": true,
+      "packages": [],
+      "update_call_sites": [
+        "src/php",
+        "src/wordpress-plugin"
+      ],
+      "delete_vendor_packages": false,
+      "exclude_from_copy": {
+        "file_patterns": [
+          "/^tests\\//",
+          "/phpcs\\.xml/",
+          "/phpstan/",
+          "/\\.github/",
+          "/\\.gitignore/"
+        ]
+      }
+    }
+  },
+  "scripts": {
+    "phpstan": "phpstan analyse --memory-limit=1G",
+    "prefix-namespaces": [
+      "@php vendor/bin/strauss",
+      "@composer dump-autoload"
+    ],
+    "pre-autoload-dump": [
+      "@php -r \"is_dir('vendor-prefixed') || mkdir('vendor-prefixed');\""
+    ],
+    "post-install-cmd": [
+      "@php -r \"if (file_exists('vendor/bin/strauss')) { passthru(PHP_BINARY . ' vendor/bin/strauss'); passthru('composer dump-autoload'); }\""
+    ],
+    "post-update-cmd": [
+      "@php -r \"if (file_exists('vendor/bin/strauss')) { passthru(PHP_BINARY . ' vendor/bin/strauss'); passthru('composer dump-autoload'); }\""
+    ]
+  }
+}

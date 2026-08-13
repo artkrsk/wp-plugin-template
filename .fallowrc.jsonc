@@ -1,0 +1,9 @@
+{
+  // Codebase-health instrument (advisory in CI; knip is the hard gate).
+  "entry": ["src/ts/boot.ts", "project.config.js", "src/styles/index.scss"],
+  "ignorePatterns": ["dist/**", "vendor/**", "vendor-prefixed/**", "src/php/**", "docs/**"],
+  "ignoreExportsUsedInFile": true,
+  "duplicates": { "minOccurrences": 3 },
+  "health": { "ignore": ["**/*.test.ts"] },
+  "rules": { "dev-dependencies-in-production": "off" }
+}
