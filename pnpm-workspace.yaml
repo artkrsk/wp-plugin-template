@@ -5,3 +5,8 @@ allowBuilds:
   # lefthook's binary rides its optionalDependencies, not this script — all the
   # postinstall does is write .git/hooks, which package.json#prepare does explicitly.
   lefthook: false
+  # Uncomment when this plugin adds @wordpress/env (wp-env integration suites):
+  # it pulls a native module via @wp-playground/cli → @php-wasm/node, and pnpm
+  # errors in CI on any build script with no explicit decision, while only
+  # warning locally. Prebuilts ship for every platform we run.
+  # fs-ext-extra-prebuilt: false
