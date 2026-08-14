@@ -16,6 +16,12 @@ Everything else via `pnpm exec`: `biome check --write .`, `tsc --noEmit`, `style
 
 Hooks: lefthook pre-commit (format + typecheck, auto-fixes re-staged) and pre-push (vitest, phpstan, phpcs). Advisory — CI is the authoritative gate (thin callers of artkrsk/wordpress-plugin-workflows).
 
+## Config gotchas
+
+- **`biome.json` is NOT JSONC — comments make it invalid.** Biome then falls back to its built-in defaults and silently reformats the whole tree (tabs, double quotes, semicolons), including files your `files.includes` was meant to protect. `biome check` does report the parse error, so read its output rather than tailing it. `knip.jsonc` and `.fallowrc.jsonc` *do* take comments; use them for per-entry reasoning.
+- **Adopting a shared config means merging it, not replacing it.** Repo-specific entries hide in these files — a security `overrides` pin, a plugin-check ignore code, an extra workflow trigger. Diff the old file against the new one before deleting anything; CI will not tell you what you dropped.
+- **Any dependency with an install script needs an explicit `allowBuilds` decision.** pnpm only warns locally but fails CI. Adding `@wordpress/env` is the usual trigger — see the commented entry in `pnpm-workspace.yaml`.
+
 ## Architecture
 
 <filled in as the plugin grows: composition root, load pipeline, module map — one line each.>
