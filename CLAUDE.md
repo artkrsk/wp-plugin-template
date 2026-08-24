@@ -21,6 +21,7 @@ Hooks: lefthook pre-commit (format + typecheck, auto-fixes re-staged) and pre-pu
 - **`biome.json` is NOT JSONC — comments make it invalid.** Biome then falls back to its built-in defaults and silently reformats the whole tree (tabs, double quotes, semicolons), including files your `files.includes` was meant to protect. `biome check` does report the parse error, so read its output rather than tailing it. `knip.jsonc` and `.fallowrc.jsonc` *do* take comments; use them for per-entry reasoning.
 - **Adopting a shared config means merging it, not replacing it.** Repo-specific entries hide in these files — a security `overrides` pin, a plugin-check ignore code, an extra workflow trigger. Diff the old file against the new one before deleting anything; CI will not tell you what you dropped.
 - **Any dependency with an install script needs an explicit `allowBuilds` decision.** pnpm only warns locally but fails CI. Adding `@wordpress/env` is the usual trigger — see the commented entry in `pnpm-workspace.yaml`.
+- **`composer.lock` resolves dev deps against YOUR PHP, not `Requires PHP`.** The canary runs that same vendor tree under PHP 8.0, where doctrine/instantiator 2.1.0 (typed class constants, `"php": "^8.4"`) fatals on the first `createMock()`. Hence the `^1.5` pin in `require-dev` — it earns its keep the day the repo adds PHPUnit, so keep it while the floor is 8.0.
 
 ## Architecture
 

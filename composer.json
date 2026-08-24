@@ -50,7 +50,8 @@
   "require-dev": {
     "arts/elementor-stubs": "^4.0",
     "arts/wp-plugin-standards": "^1.0",
-    "brianhenryie/strauss": "^0.28"
+    "brianhenryie/strauss": "^0.28",
+    "doctrine/instantiator": "^1.5"
   },
   "extra": {
     "strauss": {
