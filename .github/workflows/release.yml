@@ -14,7 +14,14 @@ jobs:
     uses: artkrsk/wordpress-plugin-workflows/.github/workflows/release.yml@main
     with:
       node_version: '24'
-      build_command: 'pnpm build'
+      # Strauss is a require-dev package and its tree (symfony/*, league/flysystem)
+      # needs PHP 8.1+, so the shared workflow's 8.0 default cannot satisfy the
+      # lock. Build toolchain only — the plugin's own floor is set in composer.json.
+      php_version: '8.4'
+      # The shared workflow installs Node deps only. Without composer install the
+      # Strauss post-install hook never runs, and the build fails copying the
+      # gitignored vendor-prefixed/ into the release.
+      build_command: 'composer install --prefer-dist --no-progress && pnpm build'
       # Auto-detection would match any dev fixture carrying a Plugin Name
       # header — pin both explicitly.
       plugin_slug: '__SLUG__'
