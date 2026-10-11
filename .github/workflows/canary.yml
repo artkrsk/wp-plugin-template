@@ -11,6 +11,8 @@ permissions:
 
 jobs:
   canary:
+    # The template's own composer.json holds __SLUG__ placeholders, which fail composer's schema check.
+    if: github.repository != 'artkrsk/wp-plugin-template'
     uses: artkrsk/wordpress-plugin-workflows/.github/workflows/canary.yml@main
     with:
       integration_suites: '[]'
