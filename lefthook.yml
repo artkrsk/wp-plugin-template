@@ -29,7 +29,13 @@ pre-push:
   jobs:
     - name: test
       run: pnpm exec vitest run
+    # The PHP jobs are skipped while vendor/ is absent: the template itself can never
+    # `composer install` (its package name is a placeholder), and CI still runs both.
     - name: phpstan
+      skip:
+        - run: test ! -x vendor/bin/phpstan
       run: vendor/bin/phpstan analyse --memory-limit=1G --no-progress
     - name: phpcs
+      skip:
+        - run: test ! -x vendor/bin/phpcs
       run: vendor/bin/phpcs
